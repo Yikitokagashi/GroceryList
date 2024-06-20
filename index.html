@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/icon.png">
+
+    <!-- third party css -->
+    <link href="assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css">
+    <!-- third party css end -->
+
+    <!-- App css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
+    <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
+</head>
+<body class="loading" data-layout="detached" data-layout-config='{"layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+    <!-- Topbar Start -->
+    <div class="navbar-custom topnav-navbar topnav-navbar-dark position-fixed">
+        <div class="container-fluid">
+
+            <!-- LOGO -->
+            <a href="index.html" class="topnav-logo">
+                <span class="topnav-logo-lg">
+                    <img src="assets/images/icon.png" alt="" height="45">
+                    <span class="text-light font-24 fw-bolder">Grocery List</span>
+                </span>
+                <span class="topnav-logo-sm">
+                    <img src="assets/images/icon.png" alt="" height="45">
+                    <span class="text-light font-24 fw-bolder">Grocery List</span>
+
+                </span>
+            </a>
+
+            <ul class="list-unstyled topbar-menu float-end mb-0">
+
+                <li class="dropdown notification-list d-xl-none">
+                    <button class="btn bg-transparent dripicons-print text-light" onclick="printlist()"></button>
+                </li>
+            </ul>
+            <div class="app-search dropdown float-end mt-2">
+                <button class="btn bg-transparent dripicons-print text-light font-24" onclick="printlist()"></button>
+            </div>
+        </div>
+    </div>
+    <!-- end Topbar -->
+
+    <!-- Start Content-->
+    <div class="container-fluid mt-5">
+
+        <!-- Begin page -->
+        <div class="wrapper">
+
+
+            <div class="content-page">
+                <div class="content">
+                    <div class="row justify-content-center mt-2">
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-body p-0 table-responsive w-100 nowrap">
+                                        <table id="grocery-list" class="table table-centered  mb-0">
+                                            <thead>
+                                                <tr class="bg-dark text-center text-light">
+                                                    <th>Image</th>
+                                                    <th>Item</th>
+                                                    <th>Price</th>
+                                                    <th>Quentity</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Output -->
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+
+                                <div id="overall-total-container">
+                                    <strong class="fw-bolder">Overall Total: <span id="overall-total">0.00</span></strong>
+                                </div>
+                            </div> <!-- end col-->
+                    </div> <!-- end row -->
+                </div> <!-- End Content -->
+
+                <div class="position-absolute bottom-0 end-0">
+                    
+                </div>
+
+                <div class="position-fixed" style="bottom: 30px; right: 30px;">
+                    <!-- Standard modal -->
+                    <button type="button" class="btn btn-success btn-rounded dripicons-plus ps-3 pe-3 pt-2 pb-2" data-bs-toggle="modal" data-bs-target="#standard-modal" style="font-size: 40px;"></button>
+                </div>  
+
+                <!-- Standard modal -->
+                <div id="standard-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <img src="assets/images/icon.png" height="40" alt="">
+                                <h4 class="modal-title" id="standard-modalLabel">Gorcery List</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                            </div>
+                            <form id="add-item-form">
+                                <div class="modal-body">
+                                    <label class="form-label" for="item-image">Image:</label>
+                                    <input class="form-control" type="file" id="item-image" accept="image/*" required>
+                                    <label class="form-label mt-1" for="item-name">Item Name:</label>
+                                    <input class="form-control" type="text" id="item-name" required>
+                                    <label class="form-label mt-1" for="item-price">Price:</label>
+                                    <input class="form-control" type="number" id="item-price" step="0.01" required>
+                                    <label class="form-label mt-1" for="item-quantity">Quantity:</label>
+                                    <input class="form-control" type="number" id="item-quantity" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-success dripicons-plus font-16" type="submit"></button>
+                                </div>
+                            </form>
+
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div> 
+            <!-- content-page -->
+
+        </div> <!-- end wrapper-->
+        
+    </div>
+    <!-- END Container -->
+
+
+    <!-- bundle -->
+    <script src="assets/js/vendor.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
+
+    <!-- third party js -->
+    <script src="assets/js/vendor/apexcharts.min.js"></script>
+    <script src="assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- third party js ends -->
+
+    <!-- demo app -->
+    <script src="assets/js/pages/demo.dashboard.js"></script>
+    <!-- end demo js-->
+
+    <script>
+        function printlist() {
+            window.print();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // const addItemBtn = document.getElementById('add-item-btn');
+            // const addItemModal = document.getElementById('add-item-modal');
+            // const closeBtn = document.querySelector('.close');
+            const addItemForm = document.getElementById('add-item-form');
+            const groceryList = document.getElementById('grocery-list').getElementsByTagName('tbody')[0];
+            const overallTotalSpan = document.getElementById('overall-total');
+
+            let items = [];
+
+            // addItemBtn.addEventListener('click', function() {
+            //     addItemModal.style.display = 'block';
+            // });
+
+            // closeBtn.addEventListener('click', function() {
+            //     addItemModal.style.display = 'none';
+            // });
+
+            // window.addEventListener('click', function(event) {
+            //     if (event.target == addItemModal) {
+            //         addItemModal.style.display = 'none';
+            //     }
+            // });
+
+            addItemForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const itemName = document.getElementById('item-name').value;
+                const itemPrice = parseFloat(document.getElementById('item-price').value);
+                const itemQuantity = parseInt(document.getElementById('item-quantity').value);
+                const itemImage = document.getElementById('item-image').files[0];
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const item = {
+                        id: Date.now(),
+                        name: itemName,
+                        price: itemPrice,
+                        quantity: itemQuantity,
+                        image: e.target.result
+                    };
+                    items.push(item);
+                    addItemToTable(item);
+                    updateOverallTotal();
+                    addItemForm.reset();
+                    addItemModal.style.display = 'none';
+                };
+                reader.readAsDataURL(itemImage);
+            });
+
+            function addItemToTable(item) {
+                const row = groceryList.insertRow();
+                row.setAttribute('data-id', item.id);
+
+                const cellImage = row.insertCell(0);
+                const img = document.createElement('img');
+                img.src = item.image;
+                img.width = 100;
+                cellImage.appendChild(img);
+
+                const cellName = row.insertCell(1);
+                cellName.textContent = item.name;
+
+                const cellPrice = row.insertCell(2);
+                const priceInput = document.createElement('input');
+                priceInput.type = 'number';
+                priceInput.step = '0.01';
+                priceInput.value = item.price;
+                priceInput.addEventListener('change', function() {
+                    item.price = parseFloat(this.value);
+                    updateItemTotal(item, row);
+                    updateOverallTotal();
+                });
+                cellPrice.appendChild(priceInput);
+
+                const cellQuantity = row.insertCell(3);
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.value = item.quantity;
+                quantityInput.addEventListener('change', function() {
+                    item.quantity = parseInt(this.value);
+                    updateItemTotal(item, row);
+                    updateOverallTotal();
+                });
+                cellQuantity.appendChild(quantityInput);
+
+                const cellTotal = row.insertCell(4);
+                cellTotal.textContent = (item.price * item.quantity).toFixed(2);
+
+                const cellActions = row.insertCell(5);
+                // const editBtn = document.createElement('button');
+                // editBtn.textContent = 'Edit';
+                // editBtn.addEventListener('click', function() {
+                //     priceInput.removeAttribute('disabled');
+                //     quantityInput.removeAttribute('disabled');
+                // });
+                // cellActions.appendChild(editBtn);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.classList= 'btn btn-danger';
+                deleteBtn.addEventListener('click', function() {
+                    items = items.filter(i => i.id !== item.id);
+                    groceryList.removeChild(row);
+                    updateOverallTotal();
+                });
+                cellActions.appendChild(deleteBtn);
+            }
+
+            function updateItemTotal(item, row) {
+                const cellTotal = row.cells[4];
+                cellTotal.textContent = (item.price * item.quantity).toFixed(2);
+            }
+
+            function updateOverallTotal() {
+                const overallTotal = items.reduce((total, item) => total + (item.price * item.quantity), 0);
+                overallTotalSpan.textContent = overallTotal.toFixed(2);
+            }
+        });
+    </script>
+</body>
+</html>
